@@ -5,5 +5,9 @@ require 'hexlet_code/tag'
 
 module HexletCode
   class Error < StandardError; end
-  # Your code goes here...
+
+  def self.form_for(_object, url: '#', &_block)
+    "<form action=\"#{url}\" method=\"post\">
+    </form>"
+  end
 end
