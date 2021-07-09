@@ -2,7 +2,7 @@
 
 module HexletCode
   module Tag
-    SELF_CLOSING_TAGS = %i[area base input link br hr img]
+    SELF_CLOSING_TAGS = %i[area base input link br hr img].freeze
 
     def self.build(name, options = {}, &block)
       opts = options.map { |key, value| "#{key}=\"#{value}\"" }

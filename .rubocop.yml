@@ -1,0 +1,15 @@
+---
+
+require:
+  - rubocop-rake
+  # - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'bin/**'
+
+Style/Documentation:
+  Enabled: false
