@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
-require 'hexlet_code/version'
-require 'hexlet_code/tag'
+require_relative 'hexlet_code/version'
 
 module HexletCode
+  autoload :FormBuilder, 'hexlet_code/form_builder'
+  autoload :Tag, 'hexlet_code/tag'
+
   class Error < StandardError; end
 
-  def self.form_for(_object, url: '#', &_block)
-    "<form action=\"#{url}\" method=\"post\">
-    </form>"
+  def self.form_for(object, url: '#', &block)
+    form = HexletCode::FormBuilder.new(object)
+    yield form if block_given?
+    "<form action=\"#{url}\" method=\"post\">#{form.result}</form>"
   end
 end

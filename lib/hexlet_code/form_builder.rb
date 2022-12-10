@@ -2,31 +2,30 @@
 
 module HexletCode
   class FormBuilder
-    def initialize(obj, *args, &block)
+    def initialize(obj)
       @obj = obj
-      @options = args.detect { |opt| opt.is_a?(Hash) } || {}
-      @args = args
+      @elements = []
 
-      res = instance_eval &block
-
-      binding.irb
-      res.to_s
+      self
     end
 
-    def input(name, options = {})
-      input_type = options[:as] || 'text'
-      HexletCode::Tag.build('input', type: input_type, value: 'Save')
+    def result
+      @elements.join('')
     end
 
-    private
+    def input(attribute_name, **options, &block)
+      type = options.fetch(:as, :string)
 
-    # def default_input_type(attribute)
-    #   input_type = @object.try(:column_for_attribute, attribute)
-    #   case input_type
-    #     when nil then :string
-    #     when :timestamp then :datetime
-    #     else input_type
-    #   end
-    # end
+      value = @obj.public_send(attribute_name)
+
+      tag = if type == :text
+              HexletCode::Tag.build(:textarea, name: attribute_name, body: value, **options.except(:as), &block)
+            else
+              HexletCode::Tag.build(:input, name: attribute_name, type: 'text', value: value, **options.except(:as), &block)
+            end
+
+
+      @elements << tag
+    end
   end
 end
