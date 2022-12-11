@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HexletCode do
+RSpec.describe HexletCode do # rubocop:disable Metrics/BlockLength
   User = Struct.new(:name, :job, :gender, keyword_init: true)
 
   it 'has a version number' do
@@ -9,14 +9,14 @@ RSpec.describe HexletCode do
 
   it 'empty form_for' do
     user = User.new name: 'rob'
-    result = HexletCode.form_for(user) {}
+    result = HexletCode.form_for(user)
     expected = load_fixture('empty_form.txt')
     expect(result).to eq(expected)
   end
 
   it 'empty form_for with url' do
     user = User.new name: 'rob'
-    result = HexletCode.form_for(user, url: '/users') {}
+    result = HexletCode.form_for(user, url: '/users')
 
     expected = load_fixture('empty_form_with_url.txt')
     expect(result).to eq(expected)
@@ -60,7 +60,7 @@ RSpec.describe HexletCode do
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
     expect do
-      result = HexletCode.form_for user, url: '/users' do |f|
+      HexletCode.form_for user, url: '/users' do |f|
         f.input :name
         f.input :job, as: :text
         # Поля age у пользователя нет

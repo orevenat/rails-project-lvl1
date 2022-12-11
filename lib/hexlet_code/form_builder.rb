@@ -5,26 +5,23 @@ module HexletCode
     def initialize(obj)
       @obj = obj
       @elements = []
-
-      self
     end
 
     def result
-      @elements.join('')
+      @elements.join
     end
 
-    def input(attribute_name, **options, &block)
+    def input(attr_name, **options, &block)
       type = options.fetch(:as, :string)
 
-      value = @obj.public_send(attribute_name)
+      value = @obj.public_send(attr_name)
 
-      label = HexletCode::Tag.build(:label, for: attribute_name) { attribute_name.capitalize }
+      label = HexletCode::Tag.build(:label, for: attr_name) { attr_name.capitalize }
       tag = if type == :text
-              HexletCode::Tag.build(:textarea, name: attribute_name, body: value, **options.except(:as), &block)
+              HexletCode::Tag.build(:textarea, name: attr_name, body: value, **options.except(:as), &block)
             else
-              HexletCode::Tag.build(:input, name: attribute_name, type: 'text', value: value, **options.except(:as), &block)
+              HexletCode::Tag.build(:input, name: attr_name, type: 'text', value: value, **options.except(:as), &block)
             end
-
 
       @elements << label
       @elements << tag
