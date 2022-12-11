@@ -11,7 +11,7 @@ module HexletCode
       @elements.join
     end
 
-    def input(attr_name, **options, &block)
+    def input(attr_name, **options, &)
       type = options.fetch(:as, :string)
 
       value = @obj.public_send(attr_name)
@@ -19,9 +19,9 @@ module HexletCode
 
       label = HexletCode::Tag.build(:label, for: attr_name) { attr_name.capitalize }
       tag = if type == :text
-              HexletCode::Tag.build(:textarea, name: attr_name, body: value, **opts, &block)
+              HexletCode::Tag.build(:textarea, name: attr_name, body: value, **opts, &)
             else
-              HexletCode::Tag.build(:input, name: attr_name, type: 'text', value: value, **opts, &block)
+              HexletCode::Tag.build(:input, name: attr_name, type: 'text', value:, **opts, &)
             end
 
       @elements << label
@@ -30,7 +30,7 @@ module HexletCode
 
     def submit(text = nil)
       value = text.nil? ? 'Save' : text
-      tag = HexletCode::Tag.build(:input, type: 'submit', value: value)
+      tag = HexletCode::Tag.build(:input, type: 'submit', value:)
       @elements << tag
     end
   end
