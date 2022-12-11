@@ -8,9 +8,13 @@ module HexletCode
 
   class Error < StandardError; end
 
-  def self.form_for(object, url: '#', &block)
+  def self.form_for(object, **options, &block)
     form = HexletCode::FormBuilder.new(object)
     yield form if block_given?
-    "<form action=\"#{url}\" method=\"post\">#{form.result}</form>"
+    action = options.fetch(:url, '#')
+    form_options = { action: action, method: 'post' }.merge(options.except(:url))
+    HexletCode::Tag.build('form', form_options) do
+      form.result
+    end
   end
 end
