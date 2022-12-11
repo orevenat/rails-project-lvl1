@@ -10,7 +10,7 @@ RSpec.describe HexletCode do
   it 'empty form_for' do
     user = User.new name: 'rob'
     result = HexletCode.form_for(user) {}
-    expected = '<form action="#" method="post"></form>'
+    expected = load_fixture('empty_form.txt')
     expect(result).to eq(expected)
   end
 
@@ -18,46 +18,42 @@ RSpec.describe HexletCode do
     user = User.new name: 'rob'
     result = HexletCode.form_for(user, url: '/users') {}
 
-    expected = '<form action="/users" method="post"></form>'
+    expected = load_fixture('empty_form_with_url.txt')
     expect(result).to eq(expected)
   end
 
-  it 'form with object and class' do
+  it 'form with object' do
     user = User.new name: 'rob', gender: 'm'
-
     result = HexletCode.form_for user, url: '#' do |f|
       f.input :name, class: 'user-input'
       f.input :job
     end
 
-    expected = '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value="rob" class="user-input"><label for="job">Job</label><input name="job" type="text" value=""></form>'
-
+    expected = load_fixture('form_with_object.txt')
     expect(result).to eq(expected)
   end
 
-  it 'form with object' do
+  it 'form with object with submit' do
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job, as: :text
       f.submit 'Wow'
     end
 
-    expected = '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><textarea name="job" cols="20" rows="40">hexlet</textarea><input type="submit" value="Wow"></form>'
-
+    expected = load_fixture('form_with_object_and_submit.txt')
     expect(result).to eq(expected)
   end
 
   it 'form with object and overwrite default_options' do
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-
     result = HexletCode.form_for user, url: '#' do |f|
       f.input :job, as: :text, rows: 50, cols: 50
       f.submit
     end
 
-    expected = '<form action="#" method="post"><label for="job">Job</label><textarea cols="50" rows="50" name="job">hexlet</textarea><input type="submit" value="Save"></form>'
+    expected = load_fixture('form_with_object_and_overwrite_default_options.txt')
+    expect(result).to eq(expected)
   end
 
   it 'form with object and unexpected field with exception' do
