@@ -15,7 +15,7 @@ module HexletCode
       type = options.fetch(:as, :string)
 
       value = @obj.public_send(attr_name)
-      opts = options.reject { |k, _| [:as].include? k }
+      opts = options.except(:as)
 
       label = HexletCode::Tag.build(:label, for: attr_name) { attr_name.capitalize }
       tag = if type == :text

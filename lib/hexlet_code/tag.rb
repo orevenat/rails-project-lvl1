@@ -8,7 +8,7 @@ module HexletCode
       default_options = default_options_for(tag_name.to_sym)
       options.merge!(default_options.reject { |key, _| options.key? key })
 
-      opts = options.reject { |k, _| [:body].include? k }
+      opts = options.except(:body)
                     .map { |key, value| "#{key}=\"#{value}\"" }
                     .join(' ')
                     .then { |it| it.size.positive? ? " #{it}" : it }
