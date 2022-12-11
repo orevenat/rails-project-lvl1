@@ -8,7 +8,7 @@ module HexletCode
 
   class Error < StandardError; end
 
-  def self.form_for(object, **options, &_block)
+  def self.form_for(object, **options)
     form = HexletCode::FormBuilder.new(object)
     yield form if block_given?
     action = options.fetch(:url, '#')

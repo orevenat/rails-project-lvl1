@@ -11,7 +11,7 @@ module HexletCode
       @elements.join
     end
 
-    def input(attr_name, **options, &block) # rubocop:disable Metrics/MethodLength
+    def input(attr_name, **options, &block)
       type = options.fetch(:as, :string)
 
       value = @obj.public_send(attr_name)

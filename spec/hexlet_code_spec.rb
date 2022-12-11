@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe HexletCode do # rubocop:disable Metrics/BlockLength
-  User = Struct.new(:name, :job, :gender, keyword_init: true)
+  User = Struct.new(:name, :job, :gender, keyword_init: true) # rubocop:disable Lint/ConstantDefinitionInBlock
 
   it 'has a version number' do
     expect(HexletCode::VERSION).not_to be nil

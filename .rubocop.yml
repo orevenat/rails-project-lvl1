@@ -15,11 +15,8 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
-Lint/ConstantDefinitionInBlock:
-  Enabled: false
-
 Metrics/AbcSize:
   Enabled: false
 
-Metrics/CyclomaticComplexity:
+Metrics/MethodLength:
   Enabled: false
