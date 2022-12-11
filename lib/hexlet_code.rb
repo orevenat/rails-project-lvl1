@@ -12,7 +12,7 @@ module HexletCode
     form = HexletCode::FormBuilder.new(object)
     yield form if block_given?
     action = options.fetch(:url, '#')
-    form_options = { action: action, method: 'post' }.merge(options.except(:url))
+    form_options = { action: action, method: 'post' }.merge(options.reject { |k, _| [:url].include? k })
     HexletCode::Tag.build('form', form_options) do
       form.result
     end

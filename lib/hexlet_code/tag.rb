@@ -4,11 +4,11 @@ module HexletCode
   module Tag
     SELF_CLOSING_TAGS = %i[area base input link br hr img].freeze
 
-    def self.build(tag_name, options = {}, &block) # rubocop:disable Metrics/AbcSize
+    def self.build(tag_name, options = {}, &block)
       default_options = default_options_for(tag_name.to_sym)
       options.merge!(default_options.reject { |key, _| options.key? key })
 
-      opts = options.except(:body)
+      opts = options.reject { |k, _| [:body].include? k }
                     .map { |key, value| "#{key}=\"#{value}\"" }
                     .join(' ')
                     .then { |it| it.size.positive? ? " #{it}" : it }

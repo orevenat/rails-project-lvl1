@@ -11,16 +11,17 @@ module HexletCode
       @elements.join
     end
 
-    def input(attr_name, **options, &block)
+    def input(attr_name, **options, &block) # rubocop:disable Metrics/MethodLength
       type = options.fetch(:as, :string)
 
       value = @obj.public_send(attr_name)
+      opts = options.reject { |k, _| [:as].include? k }
 
       label = HexletCode::Tag.build(:label, for: attr_name) { attr_name.capitalize }
       tag = if type == :text
-              HexletCode::Tag.build(:textarea, name: attr_name, body: value, **options.except(:as), &block)
+              HexletCode::Tag.build(:textarea, name: attr_name, body: value, **opts, &block)
             else
-              HexletCode::Tag.build(:input, name: attr_name, type: 'text', value: value, **options.except(:as), &block)
+              HexletCode::Tag.build(:input, name: attr_name, type: 'text', value: value, **opts, &block)
             end
 
       @elements << label

@@ -17,3 +17,10 @@ Style/Documentation:
 
 Lint/ConstantDefinitionInBlock:
   Enabled: false
+
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
