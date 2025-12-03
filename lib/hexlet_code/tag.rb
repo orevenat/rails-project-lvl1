@@ -20,12 +20,12 @@ module HexletCode
     end
 
     def self.render_single_tag(tag_name, options)
-      opts = options.then { |it| it.size.positive? ? " #{it}" : it }
+      opts = options.then { |current| current.size.positive? ? " #{current}" : current }
       "<#{tag_name}#{opts}>"
     end
 
     def self.render_tag(tag_name, body, options)
-      opts = options.then { |it| it.size.positive? ? " #{it}" : it }
+      opts = options.then { |current| current.size.positive? ? " #{current}" : current }
       final_body = block_given? ? yield : body.to_s
       "<#{tag_name}#{opts}>#{final_body}</#{tag_name}>"
     end
